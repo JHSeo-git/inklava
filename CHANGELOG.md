@@ -2,15 +2,18 @@
 
 ## Unreleased
 
+- Use English throughout the interface, accessibility labels, error messages, examples, tests, and project documentation.
+- Simplify the README and move detailed usage, development, and Cloudflare deployment guides into `docs/`.
+
 ## 0.1.0 - 2026-10-29
 
-- `features/workbench`를 없애고 컴포넌트·훅·로직을 `components/`, `hooks/`, `lib/`로 옮겼습니다. 소스 파일명은 kebab-case로 통일했습니다.
-- PNG 다운로드 파일명에 기기 시간대 기준 연월일·시분초를 포함합니다(`inklava-YYYYMMDD-HHmmss.png`).
-- 미리보기의 전체 다이어그램을 흰 배경 PNG로 다운로드하는 버튼을 추가했습니다. 확대·이동과 무관하게 최대 4,096px로 저장하며 변환 실패 후 재시도할 수 있습니다.
-- 소스의 자동 줄바꿈을 가로 스크롤로 바꾸고, 데스크톱에서 소스·미리보기 너비를 드래그·키보드로 조절하는 shadcn 구분선을 추가했습니다.
-- Pele Playground처럼 소스·미리보기의 포커스 테두리와 현재 줄·괄호·선택 단어의 중복 강조, 줄 번호 구분선을 제거했습니다. 텍스트 선택과 검색 결과 표시는 유지합니다.
-- 문법 오류·저장 실패 안내 변경 시 열린 소스 검색창·검색어·포커스가 사라지는 문제와 `Mermaid 소스` 레이블 클릭으로 편집기에 포커스가 가지 않는 문제를 수정했습니다.
-- Mermaid 소스 입력을 CodeMirror 6으로 전환하고 줄 번호·기본 구문 색상·두 칸 들여쓰기·검색·undo/redo·괄호 대응·자동 줄바꿈·내부 스크롤과 Escape 후 Tab 이탈을 추가했습니다. 기존 초안 저장·한글 조합 중 렌더링 보류·오류 복구·미리보기 시점은 유지합니다. [ADR 003](docs/adr/003-codemirror-source-editor.md)
-- 편집·미리보기 하단의 상시 안내 영역을 제거하고 오류가 있을 때만 메시지를 표시합니다.
-- 앱 헤더를 Inklava로 정리하고 역할별 소스 폴더와 shadcn/ui·Tailwind 기반 화면으로 전환했습니다.
-- React·Pele 다이어그램 편집 화면, 자유 줌·이동, 한글 입력과 초안 복원, Bun·Oxc 개발 도구와 브라우저 테스트, Cloudflare 정적 배포 구성을 추가했습니다.
+- Remove `features/workbench` and move components, hooks, and logic into `components/`, `hooks/`, and `lib/`. Use kebab-case source filenames.
+- Include the device's local date and time in PNG filenames (`inklava-YYYYMMDD-HHmmss.png`).
+- Add a button to download the entire diagram as a PNG with a white background. Export independently of pan and zoom, limit the longest edge to 4,096px, and allow retrying failed conversions.
+- Replace source line wrapping with horizontal scrolling and add a shadcn divider for resizing the desktop source and preview panels with the pointer or keyboard.
+- Match Pele Playground's minimal appearance by removing panel focus outlines, active-line backgrounds, bracket and matching-word highlights, and the gutter border. Keep text selection and search highlights.
+- Fix search panels losing their query and focus when syntax or storage errors change, and make the `Mermaid source` label focus the editor.
+- Replace the Mermaid textarea with CodeMirror 6, adding line numbers, basic syntax colors, two-space indentation, search, undo/redo, bracket matching, line wrapping, internal scrolling, and Escape-then-Tab focus escape. Preserve draft storage, composition-aware rendering, error recovery, and the preview camera. [ADR 003](docs/adr/003-codemirror-source-editor.md)
+- Remove persistent help rows beneath the editor and preview; show feedback only when errors occur.
+- Simplify the app header to Inklava, organize source files by role, and adopt shadcn/ui and Tailwind.
+- Add the React and Pele diagram workbench, free pan and zoom, Korean input handling and draft recovery, Bun and Oxc tooling, browser tests, and Cloudflare static asset configuration.

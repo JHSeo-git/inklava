@@ -28,7 +28,7 @@ export const DiagramPreview = memo(function DiagramPreview({
     try {
       await downloadDiagram(diagram);
     } catch {
-      setDownloadError({ diagram, message: "PNG를 저장하지 못했습니다. 다시 시도해 주세요." });
+      setDownloadError({ diagram, message: "Unable to save the PNG. Please try again." });
     } finally {
       setDownloading(false);
     }
@@ -40,17 +40,17 @@ export const DiagramPreview = memo(function DiagramPreview({
     >
       <div className="flex min-h-14 shrink-0 flex-wrap items-center justify-between gap-2 border-b px-3 py-2 md:px-4">
         <h2 id="preview-title" className="shrink-0 text-sm font-medium">
-          미리보기
+          Preview
         </h2>
         <div
           className="ml-auto flex max-w-full flex-wrap items-center justify-end gap-1"
-          aria-label="미리보기 조작"
+          aria-label="Preview controls"
         >
           <Button
             variant="outline"
             size="icon-sm"
             onClick={() => zoomBy(1 / 1.2)}
-            aria-label="축소"
+            aria-label="Zoom out"
             disabled={!diagram}
           >
             −
@@ -58,7 +58,7 @@ export const DiagramPreview = memo(function DiagramPreview({
           <output
             ref={zoomLabelRef}
             className="min-w-11 text-center text-xs tabular-nums"
-            aria-label="현재 배율"
+            aria-label="Current zoom"
           >
             100%
           </output>
@@ -66,7 +66,7 @@ export const DiagramPreview = memo(function DiagramPreview({
             variant="outline"
             size="icon-sm"
             onClick={() => zoomBy(1.2)}
-            aria-label="확대"
+            aria-label="Zoom in"
             disabled={!diagram}
           >
             +
@@ -75,16 +75,16 @@ export const DiagramPreview = memo(function DiagramPreview({
             100%
           </Button>
           <Button variant="outline" size="sm" onClick={fit} disabled={!diagram}>
-            화면에 맞춤
+            Fit to view
           </Button>
           <Button
             variant="outline"
             size="icon-sm"
             onClick={download}
             disabled={!diagram || downloading}
-            aria-label="PNG 다운로드"
+            aria-label="Download PNG"
             aria-busy={downloading}
-            title={downloading ? "PNG 저장 중…" : "PNG 다운로드"}
+            title={downloading ? "Saving PNG…" : "Download PNG"}
           >
             <svg
               viewBox="0 0 24 24"
@@ -111,7 +111,7 @@ export const DiagramPreview = memo(function DiagramPreview({
         // Keyboard pan and zoom require a focusable exploration surface.
         // oxlint-disable-next-line jsx-a11y/no-noninteractive-tabindex
         tabIndex={0}
-        aria-label="다이어그램 탐색"
+        aria-label="Diagram exploration"
       >
         <div
           className="diagram-content pointer-events-none absolute top-0 left-0 origin-top-left will-change-transform"
@@ -122,8 +122,8 @@ export const DiagramPreview = memo(function DiagramPreview({
         {!diagram && (
           <p className="pointer-events-none absolute inset-0 m-6 grid place-content-center text-center text-sm text-muted-foreground">
             {error
-              ? "소스를 수정하면 여기에 다이어그램이 나타납니다."
-              : "Mermaid 소스를 입력해 보세요."}
+              ? "Fix the source to display your diagram here."
+              : "Enter Mermaid source to get started."}
           </p>
         )}
         {stale && (
@@ -132,7 +132,7 @@ export const DiagramPreview = memo(function DiagramPreview({
               variant="outline"
               className="h-auto rounded-md bg-background px-2.5 py-1.5 text-muted-foreground whitespace-normal"
             >
-              마지막 성공 결과 · 현재 입력과 다릅니다
+              Last successful render · Source has changed
             </Badge>
           </output>
         )}

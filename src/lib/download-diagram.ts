@@ -25,14 +25,14 @@ export async function downloadDiagram(diagram: Diagram) {
     canvas.width = width;
     canvas.height = height;
     const context = canvas.getContext("2d");
-    if (!context) throw new Error("이미지를 만들 수 없습니다. 다시 시도해 주세요.");
+    if (!context) throw new Error("Unable to create the image. Please try again.");
     context.fillStyle = "#ffffff";
     context.fillRect(0, 0, width, height);
     context.drawImage(image, 0, 0, width, height);
     const png = await new Promise<Blob>((resolve, reject) => {
       canvas.toBlob((blob) => {
         if (blob) resolve(blob);
-        else reject(new Error("PNG 변환에 실패했습니다. 다시 시도해 주세요."));
+        else reject(new Error("PNG conversion failed. Please try again."));
       }, "image/png");
     });
     const pngUrl = URL.createObjectURL(png);

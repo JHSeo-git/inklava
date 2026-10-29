@@ -130,7 +130,7 @@ export function SourceEditor({
     >
       <div className="flex h-14 shrink-0 items-center justify-between gap-3 border-b px-4">
         <Label id="source-title" onClick={() => editorRef.current?.view?.focus()}>
-          Mermaid 소스
+          Mermaid source
         </Label>
         <Badge variant="secondary">Pele</Badge>
       </div>
@@ -156,7 +156,7 @@ export function SourceEditor({
           )}
           {storageFailed && (
             <p className="error">
-              초안을 브라우저에 저장할 수 없습니다. 편집은 계속할 수 있습니다.
+              Unable to save your draft in this browser. You can continue editing.
             </p>
           )}
         </div>

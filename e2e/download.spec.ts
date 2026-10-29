@@ -3,10 +3,10 @@ import { expect, test, type Page } from "@playwright/test";
 
 test.use({ timezoneId: "Asia/Seoul" });
 
-const editor = (page: Page) => page.getByRole("textbox", { name: "Mermaid 소스" });
-const button = (page: Page) => page.getByRole("button", { name: "PNG 다운로드" });
+const editor = (page: Page) => page.getByRole("textbox", { name: "Mermaid source" });
+const button = (page: Page) => page.getByRole("button", { name: "Download PNG" });
 const svg = (page: Page) => page.locator(".diagram-content svg");
-const source = "flowchart LR\n A[한글 아이디어] --> B[이미지 저장]";
+const source = "flowchart LR\n A[An idea] --> B[Save image]";
 
 async function download(page: Page) {
   const pending = page.waitForEvent("download");
@@ -25,7 +25,7 @@ test("downloads the full PNG independent of the camera and preserves the last go
   await page.clock.setFixedTime(new Date("2026-10-28T15:03:07Z"));
   await page.goto("/");
   await editor(page).fill(source);
-  await expect(svg(page)).toContainText("이미지 저장");
+  await expect(svg(page)).toContainText("Save image");
   const dimensions = await svg(page).evaluate((element) => ({
     width: Number(element.getAttribute("width")),
     height: Number(element.getAttribute("height")),
@@ -57,7 +57,7 @@ test("downloads the full PNG independent of the camera and preserves the last go
   expect(pixels.ink).toBeGreaterThan(100);
   expect(pixels.transparent).toBe(0);
 
-  const surface = page.getByRole("region", { name: "다이어그램 탐색" });
+  const surface = page.getByRole("region", { name: "Diagram exploration" });
   await surface.dispatchEvent("wheel", { deltaY: -200, ctrlKey: true });
   await surface.dispatchEvent("wheel", { deltaX: 2000, deltaY: 1000 });
   const second = await download(page);
@@ -95,7 +95,7 @@ test("reports encoding failures and allows retry without breaking the preview", 
 }) => {
   await page.goto("/");
   await editor(page).fill(source);
-  await expect(svg(page)).toContainText("이미지 저장");
+  await expect(svg(page)).toContainText("Save image");
   await page.evaluate(() => {
     const original = Object.getOwnPropertyDescriptor(HTMLCanvasElement.prototype, "toBlob")!;
     HTMLCanvasElement.prototype.toBlob = function (callback) {
@@ -104,11 +104,9 @@ test("reports encoding failures and allows retry without breaking the preview", 
     };
   });
   await button(page).click();
-  await expect(page.getByRole("alert")).toHaveText(
-    "PNG를 저장하지 못했습니다. 다시 시도해 주세요.",
-  );
+  await expect(page.getByRole("alert")).toHaveText("Unable to save the PNG. Please try again.");
   await expect(button(page)).toBeEnabled();
-  await expect(svg(page)).toContainText("이미지 저장");
+  await expect(svg(page)).toContainText("Save image");
   await download(page);
   await expect(page.getByRole("alert")).toHaveCount(0);
 });

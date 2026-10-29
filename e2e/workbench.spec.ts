@@ -1,7 +1,7 @@
 import { expect, test, type Page } from "@playwright/test";
 
-const editor = (page: Page) => page.getByRole("textbox", { name: "Mermaid 소스" });
-const surface = (page: Page) => page.getByRole("region", { name: "다이어그램 탐색" });
+const editor = (page: Page) => page.getByRole("textbox", { name: "Mermaid source" });
+const surface = (page: Page) => page.getByRole("region", { name: "Diagram exploration" });
 const svg = (page: Page) => page.locator(".diagram-content svg");
 const camera = (page: Page) =>
   page.locator(".diagram-content").evaluate((element) => {
@@ -54,7 +54,7 @@ test("renders supported diagrams, keeps last good SVG on errors, and clears empt
   await expect(svg(page)).toContainText("CUSTOMER");
   await editor(page).fill("");
   await expect(svg(page)).toHaveCount(0);
-  await expect(page.getByText("Mermaid 소스를 입력해 보세요.")).toBeVisible();
+  await expect(page.getByText("Enter Mermaid source to get started.")).toBeVisible();
 });
 
 test("restores an explicitly empty draft and saves the latest edit on pagehide", async ({
@@ -91,7 +91,7 @@ test("storage denial leaves editing and rendering available", async ({ page }) =
     };
   });
   await page.goto("/");
-  await expect(page.getByText(/초안을 브라우저에 저장할 수 없습니다/)).toBeVisible();
+  await expect(page.getByText(/Unable to save your draft in this browser/)).toBeVisible();
   await editor(page).fill(flowchart);
   await expect(svg(page)).toContainText("Hello");
 });
@@ -101,12 +101,12 @@ test("composition cancels an earlier render and waits for compositionend", async
   await expect(svg(page)).toBeVisible();
   await editor(page).fill(flowchart);
   await editor(page).dispatchEvent("compositionstart");
-  await compositionInput(page, "flowchart LR\n A[한글 입력] --> B[완료]");
+  await compositionInput(page, "flowchart LR\n A[Composed input] --> B[Done]");
   await page.waitForTimeout(350);
-  await expect(svg(page)).not.toContainText("한글 입력");
+  await expect(svg(page)).not.toContainText("Composed input");
   await expect(svg(page)).not.toContainText("Hello");
   await editor(page).dispatchEvent("compositionend");
-  await expect(svg(page)).toContainText("한글 입력");
+  await expect(svg(page)).toContainText("Composed input");
 });
 
 test("a final composition mutation after compositionend reaches preview and storage", async ({
@@ -115,11 +115,11 @@ test("a final composition mutation after compositionend reaches preview and stor
   await page.goto("/");
   await expect(svg(page)).toBeVisible();
   await editor(page).dispatchEvent("compositionstart");
-  await compositionInput(page, "flowchart LR\n A[조합 중] --> B[대기]");
+  await compositionInput(page, "flowchart LR\n A[Composing] --> B[Waiting]");
   await editor(page).dispatchEvent("compositionend");
-  const finalSource = "flowchart LR\n A[조합 완료] --> B[최종]";
+  const finalSource = "flowchart LR\n A[Composition complete] --> B[Final]";
   await editor(page).fill(finalSource);
-  await expect(svg(page)).toContainText("조합 완료");
+  await expect(svg(page)).toContainText("Composition complete");
   await expect
     .poll(() => page.evaluate(() => localStorage.getItem("inklava:source")))
     .toBe(finalSource);
@@ -258,11 +258,11 @@ test("resize keeps the world point at center and a hidden initial panel eventual
 
 test("unknown routes show a way back and the mobile layout stays usable", async ({ page }) => {
   await page.goto("/missing");
-  await expect(page.getByText("페이지를 찾을 수 없습니다.")).toBeVisible();
-  await page.getByRole("link", { name: "작업 화면으로 돌아가기" }).click();
+  await expect(page.getByText("Page not found.")).toBeVisible();
+  await page.getByRole("link", { name: "Back to editor" }).click();
   await expect(svg(page)).toBeVisible();
   await page.setViewportSize({ width: 390, height: 844 });
-  await expect(page.getByRole("button", { name: "화면에 맞춤" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Fit to view" })).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390);
   await editor(page).fill(flowchart);
   await expect(svg(page)).toContainText("Hello");
@@ -316,9 +316,11 @@ test("code editing keeps history, indents two spaces, searches and escapes Tab c
   await expect(editor(page)).toBeFocused();
   await editor(page).press("Escape");
   await editor(page).press("Tab");
-  await expect(page.getByRole("separator", { name: "소스와 미리보기 너비 조절" })).toBeFocused();
+  await expect(
+    page.getByRole("separator", { name: "Resize source and preview panels" }),
+  ).toBeFocused();
   await page.keyboard.press("Tab");
-  await expect(page.getByRole("button", { name: "축소" })).toBeFocused();
+  await expect(page.getByRole("button", { name: "Zoom out" })).toBeFocused();
 });
 
 test("open search survives syntax errors, changed errors and recovery", async ({ page }) => {
@@ -370,7 +372,7 @@ test("open search survives a delayed draft storage failure", async ({ page }) =>
   await page.getByRole("textbox", { name: "Find", exact: true }).pressSequentially("diagram");
   await expect(page.locator(".source-feedback")).toHaveCount(0);
   await page.clock.runFor(400);
-  await expect(page.getByText(/초안을 브라우저에 저장할 수 없습니다/)).toBeVisible();
+  await expect(page.getByText(/Unable to save your draft in this browser/)).toBeVisible();
   await expect(svg(page)).toContainText("diagram");
   await expectSearchUsable(page);
 });
@@ -410,7 +412,7 @@ test("source label focuses the editor and preserves its document and selection",
     });
   const before = await selection();
   expect(before.text).toBe("fl");
-  await page.getByRole("button", { name: "축소", exact: true }).focus();
+  await page.getByRole("button", { name: "Zoom out", exact: true }).focus();
   await expect(editor(page)).not.toBeFocused();
   await page.locator("#source-title").click();
   await expect(editor(page)).toBeFocused();
@@ -426,7 +428,7 @@ test("long source scrolls on both axes without wrapping or expanding the panel",
 }) => {
   await page.goto("/");
   await editor(page).fill(
-    `flowchart LR\n A["${"긴 설명 ".repeat(100)}"] --> B\n${"%% extra line\n".repeat(150)}`,
+    `flowchart LR\n A["${"Long description ".repeat(100)}"] --> B\n${"%% extra line\n".repeat(150)}`,
   );
   await editor(page).press("ControlOrMeta+Home");
   const scroller = page.locator(".cm-scroller");
@@ -494,7 +496,7 @@ test("panel divider resizes with pointer and keyboard while preserving editing a
   const previewBox = (await surface(page).boundingBox())!;
   const panel = page.locator(".source-panel");
   const originalWidth = (await panel.boundingBox())!.width;
-  const divider = page.getByRole("separator", { name: "소스와 미리보기 너비 조절" });
+  const divider = page.getByRole("separator", { name: "Resize source and preview panels" });
   const box = (await divider.boundingBox())!;
   const startX = box.x + box.width / 2 + 3;
   await page.mouse.move(startX, box.y + box.height / 2);

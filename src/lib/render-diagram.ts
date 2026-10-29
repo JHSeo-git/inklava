@@ -16,13 +16,13 @@ export function renderError(error: unknown): string {
   if (error instanceof PeleError) {
     return [
       error.message,
-      error.line > 0 ? `위치: ${error.line}행 ${error.column}열` : "",
+      error.line > 0 ? `Location: line ${error.line}, column ${error.column}` : "",
       error.snippet,
     ]
       .filter(Boolean)
       .join("\n");
   }
   return error instanceof Error
-    ? `다이어그램을 표시하지 못했습니다: ${error.message}`
-    : "다이어그램을 표시하지 못했습니다. 입력을 확인해 주세요.";
+    ? `Unable to render the diagram: ${error.message}`
+    : "Unable to render the diagram. Please check your source.";
 }

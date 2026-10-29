@@ -5,9 +5,9 @@ import { SourceEditor } from "./source-editor";
 import { renderDiagram, renderError, type Diagram } from "@/lib/render-diagram";
 
 const example = `flowchart LR
-    A[아이디어] --> B[소스 편집]
-    B --> C[다이어그램]
-    C --> D[새로운 생각]
+    A[Idea] --> B[Edit source]
+    B --> C[Diagram]
+    C --> D[New ideas]
     D --> A`;
 const draftKey = "inklava:source";
 
@@ -101,7 +101,7 @@ export function Workbench() {
         <ResizableHandle
           className="z-10 hidden after:w-6 pointer-fine:after:w-[9px] md:flex"
           disabled={!desktop}
-          aria-label="소스와 미리보기 너비 조절"
+          aria-label="Resize source and preview panels"
         />
         <ResizablePanel
           id="preview-panel"
