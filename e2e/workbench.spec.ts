@@ -436,14 +436,23 @@ test("long source scrolls on both axes without wrapping or expanding the panel",
   expect(await scroller.evaluate((element) => element.scrollWidth > element.clientWidth)).toBe(
     true,
   );
-  const line = await page.locator(".cm-content .cm-line").nth(1).boundingBox();
-  const number = await page
-    .locator(".cm-lineNumbers .cm-gutterElement")
-    .filter({ hasText: /^2$/ })
-    .boundingBox();
-  expect(line!.height).toBeCloseTo(28, 0);
-  expect(number!.y).toBeCloseTo(line!.y, 0);
-  expect(number!.height).toBeCloseTo(line!.height, 0);
+  // Read both rectangles in one frame while CodeMirror settles its scroll and layout.
+  await expect
+    .poll(() =>
+      scroller.evaluate((element) => {
+        const line = element.querySelectorAll(".cm-content .cm-line")[1]?.getBoundingClientRect();
+        const number = [...element.querySelectorAll(".cm-lineNumbers .cm-gutterElement")]
+          .find((gutter) => gutter.textContent === "2")
+          ?.getBoundingClientRect();
+        if (!line || !number) return Infinity;
+        return Math.max(
+          Math.abs(line.height - 28),
+          Math.abs(number.y - line.y),
+          Math.abs(number.height - line.height),
+        );
+      }),
+    )
+    .toBeLessThan(0.5);
   await scroller.evaluate((element) => {
     element.scrollLeft = 300;
   });
