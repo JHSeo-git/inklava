@@ -70,11 +70,14 @@ bun run preview               # Vite 빌드 결과 확인
 ```text
 src/
   app/                  # 앱 진입과 라우터
-  features/workbench/   # 편집 화면, Pele 렌더링, 화면 좌표와 단위 테스트
-  components/ui/        # shadcn 기본 컴포넌트
-  lib/                  # 클래스 병합 유틸리티
+  components/           # workbench, source-editor, diagram-preview
+    ui/                 # shadcn 기본 컴포넌트
+  hooks/                # use-viewport 등 React 훅
+  lib/                  # 렌더링, 다운로드, 구문 색상, 좌표 계산과 단위 테스트
   styles/               # Tailwind·shadcn 전역 테마
 ```
+
+소스 파일명은 `source-editor.tsx`, `render-diagram.ts`, `use-viewport.ts`처럼 kebab-case로 짓습니다. 컴포넌트는 `components/`에 직접 두고, 기능별 `features/` 폴더는 만들지 않습니다. 컴포넌트·함수의 이름은 기존 React·TypeScript 관례를 유지합니다.
 
 좌표 계산·Mermaid 토큰 처리의 단위 테스트와 세 브라우저 엔진의 E2E로 오류 복구, 초안 복원·저장 실패, 한글 조합 이벤트, 들여쓰기·undo/redo·검색·Escape 후 Tab 이탈, 오류 변경 시 검색 유지·다음 결과 이동, 레이블 클릭 포커스·선택 보존, 줄 번호 정렬·긴 줄과 문서의 내부 스크롤, 포인터 중심 줌·이동, 편집 후 시점 보존, 숨겨진 패널의 첫 맞춤, 창 크기 변경, 모바일 배치를 확인합니다. 합성 조합 이벤트는 실제 OS 한글 입력기로 입력한 검증을 대신하지 않으며, macOS Safari와 트랙패드의 감도·관성 스크롤도 물리 장치 확인이 남아 있습니다.
 

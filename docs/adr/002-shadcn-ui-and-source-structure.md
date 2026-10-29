@@ -11,7 +11,7 @@ date: 2026-10-29
 
 최신 registry는 클래스 병합에 shadcn 조직의 `cn` 0.5.0을 사용한다. 별도 clsx·tailwind-merge 경로를 추가하지 않는다. CLI가 추가한 Geist Variable 폰트는 패키지에서 자체 호스팅하며 앱 UI에만 적용한다. CLI/CSS 빌드 도구와 폰트를 포함한 직접 의존성은 정확한 버전과 `bun.lock`으로 고정했다. shadcn·Tailwind·Base UI의 최근 npm 배포와 공식 유지관리 주체를 확인했고, shadcn 공식 문서는 GitHub 관심도 약 12.7만을 표시한다. 이는 유지관리·채택의 참고 근거이며 이 앱의 실행 검증을 대신하지 않는다. [cn 저장소](https://github.com/shadcn-ui/cn), [shadcn 저장소](https://github.com/shadcn-ui/ui), [Tailwind 저장소](https://github.com/tailwindlabs/tailwindcss), [Base UI 저장소](https://github.com/mui/base-ui)
 
-소스는 `app/`의 진입·라우팅, `features/workbench/`의 작업 화면과 렌더링·좌표 계산, `components/ui/`의 shadcn 컴포넌트, `lib/`의 클래스 유틸리티, `styles/`의 전역 테마로 나눈다. 작업 화면 내부는 파일 몇 개의 평면 구조를 유지하며 재수출용 index 파일이나 호환 경로를 만들지 않는다. `@/*`는 `./src/*`로 연결하고 TypeScript 7에 맞춰 `baseUrl` 없이 `paths`를 사용한다.
+소스는 `app/`의 진입·라우팅, `components/`의 작업 화면 컴포넌트, `components/ui/`의 shadcn 컴포넌트, `hooks/`의 React 훅, `lib/`의 렌더링·다운로드·구문 색상·좌표 계산과 유틸리티, `styles/`의 전역 테마로 나눈다. 사용자 요청에 따라 초기 `features/workbench/` 배치를 없애고 앱 컴포넌트를 `components/` 바로 아래에 둔다. 파일명은 `source-editor.tsx`, `render-diagram.ts`, `use-viewport.ts`처럼 kebab-case로 통일하고, 컴포넌트·함수의 식별자 이름은 기존 관례를 유지한다. 단위 테스트는 해당 로직 옆에 둔다. 재수출용 index 파일이나 호환 경로를 만들지 않는다. `@/*`는 `./src/*`로 연결하고 TypeScript 7에 맞춰 `baseUrl` 없이 `paths`를 사용한다.
 
 Tailwind preflight가 들어오므로 SVG의 최대 너비를 제한하지 않도록 명시하고 기본 글꼴·선·자연 크기를 브라우저에서 확인한다. Textarea의 기본 `field-sizing-content`는 편집기에서 `field-sizing-fixed`와 flex 크기로 덮어써 긴 입력도 패널 안에서 스크롤하도록 한다. Base UI Button을 링크로 렌더링하면 button 역할이 부여되므로, 없는 경로의 복귀 링크에는 `buttonVariants` 스타일을 직접 적용해 링크 의미를 유지한다. [Tailwind preflight](https://tailwindcss.com/docs/preflight)
 

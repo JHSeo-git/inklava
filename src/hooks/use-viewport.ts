@@ -6,7 +6,7 @@ import {
   zoomCamera,
   type Camera,
   type Size,
-} from "./viewport";
+} from "@/lib/viewport";
 
 interface SafariGesture extends Event {
   scale: number;

@@ -2,7 +2,7 @@ import { expect, test } from "bun:test";
 import { syntaxTree } from "@codemirror/language";
 import { EditorState } from "@codemirror/state";
 import { highlightTree, tags, tagHighlighter } from "@lezer/highlight";
-import { mermaidLanguage } from "./mermaidLanguage";
+import { mermaidLanguage } from "./mermaid-language";
 
 function tokens(source: string) {
   const state = EditorState.create({ doc: source, extensions: [mermaidLanguage] });

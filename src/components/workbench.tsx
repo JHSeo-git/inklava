@@ -1,8 +1,8 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
-import { DiagramPreview } from "./DiagramPreview";
-import { SourceEditor } from "./SourceEditor";
-import { renderDiagram, renderError, type Diagram } from "./renderDiagram";
+import { DiagramPreview } from "./diagram-preview";
+import { SourceEditor } from "./source-editor";
+import { renderDiagram, renderError, type Diagram } from "@/lib/render-diagram";
 
 const example = `flowchart LR
     A[아이디어] --> B[소스 편집]

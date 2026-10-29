@@ -1,9 +1,9 @@
 import { memo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import type { Diagram } from "./renderDiagram";
-import { useViewport } from "./useViewport";
-import { downloadDiagram } from "./downloadDiagram";
+import type { Diagram } from "@/lib/render-diagram";
+import { useViewport } from "@/hooks/use-viewport";
+import { downloadDiagram } from "@/lib/download-diagram";
 
 export const DiagramPreview = memo(function DiagramPreview({
   diagram,

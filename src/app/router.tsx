@@ -1,5 +1,5 @@
 import { createRootRoute, createRoute, createRouter, Link, Outlet } from "@tanstack/react-router";
-import { Workbench } from "@/features/workbench/Workbench";
+import { Workbench } from "@/components/workbench";
 import { buttonVariants } from "@/components/ui/button";
 
 const rootRoute = createRootRoute({

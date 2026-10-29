@@ -7,7 +7,7 @@ import { EditorView } from "@codemirror/view";
 import { tags } from "@lezer/highlight";
 import CodeMirror, { type ReactCodeMirrorRef } from "@uiw/react-codemirror";
 import { useMemo, useRef } from "react";
-import { mermaidLanguage } from "./mermaidLanguage";
+import { mermaidLanguage } from "@/lib/mermaid-language";
 
 const basicSetup = {
   tabSize: 2,

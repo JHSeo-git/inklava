@@ -64,7 +64,7 @@ uiw 래퍼의 React peer 범위는 `>=17.0.0`, Monaco 래퍼는 React 19를 포�
 
 첫 구현에서는 줄 번호, 현재 줄·줄 번호 강조, undo/redo, 괄호 대응 표시, 검색 단축키, 두 칸 들여쓰기, 패널 내부 스크롤을 제공하는 구성이 적절하다. CodeMirror의 `basicSetup` 옵션으로 대부분 제어할 수 있다. 접기는 구조를 판단할 언어 지원이 있어야 의미가 있으므로 기본 단계에서 약속하지 않는다. 자동 괄호 닫기는 Mermaid 노드 표기와 한국어 입력에서 실제로 편한지 확인한 뒤 켜는 편이 좋다. [기본 설정 옵션](https://github.com/uiwjs/react-codemirror/blob/master/extensions/basic-setup/README.md)
 
-구현 경계는 현재 `src/features/workbench/SourceEditor.tsx`로 충분하다. 먼저 해당 컴포넌트의 입력 부분을 교체하고, 하이라이터가 실제로 필요해질 때 같은 폴더에 둔다. 여러 편집기를 바꿔 끼우는 인터페이스나 범용 editor service를 먼저 만들 필요는 없다. 코드 편집기 라이브러리를 shadcn 생성 컴포넌트처럼 `components/ui`에 넣기보다는 현재 기능 폴더에서 조합한다.
+구현 경계는 입력 컴포넌트 하나로 충분하다. 먼저 해당 컴포넌트의 입력 부분을 교체하고, 하이라이터가 실제로 필요해질 때 분리한다. 여러 편집기를 바꿔 끼우는 인터페이스나 범용 editor service를 먼저 만들 필요는 없다. 후속 폴더 정리에서는 [ADR 002](../adr/002-shadcn-ui-and-source-structure.md)에 따라 편집기 조합을 `src/components/source-editor.tsx`, 하이라이터를 `src/lib/mermaid-language.ts`에 두었다. `components/ui/`에는 shadcn 기본 컴포넌트만 둔다.
 
 입력값은 즉시 React 상태에 반영하고 기존 200ms 지연은 미리보기 렌더링에만 유지한다. 편집기 인스턴스를 매 입력마다 새로 만들면 커서·선택·undo 기록이 사라질 수 있으므로 설정 객체와 확장을 안정적으로 유지한다. localStorage 초안, 마지막 성공 SVG 유지, 미리보기 확대·이동은 현재 흐름을 이어간다. 이는 현재 소스의 동작을 보존하기 위한 구현 기준이다.
 

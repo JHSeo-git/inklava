@@ -1,4 +1,4 @@
-import type { Diagram } from "./renderDiagram";
+import type { Diagram } from "./render-diagram";
 
 export async function downloadDiagram(diagram: Diagram) {
   const now = new Date();

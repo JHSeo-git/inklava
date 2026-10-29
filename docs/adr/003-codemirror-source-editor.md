@@ -19,7 +19,7 @@ Mermaid 키워드·주석·문자열·연결 기호 등 기본 색상 표시는 
 
 패널 너비 조절은 공식 shadcn Resizable과 `react-resizable-panels` 4.15.1로 처리한다. 이 버전은 2026-10-28에 배포됐으며 React 19를 지원한다. 너비 768px 이상에서 가로 조절선을 제공하고, 소스 240px·미리보기 360px의 최소 너비를 둔다. 좁은 화면에서는 같은 편집기 인스턴스를 유지한 채 세로 배치로 전환하고 조절선을 숨긴다. 구분선의 확장된 클릭 영역은 미리보기보다 위에 두어 그림 이동과 크기 조절이 동시에 시작되지 않게 한다. 패널 비율을 별도 저장하는 계층은 추가하지 않는다. [shadcn Resizable](https://ui.shadcn.com/docs/components/base/resizable), [패키지](https://github.com/bvaughn/react-resizable-panels)
 
-편집기 조합은 `src/features/workbench/SourceEditor.tsx`에 두고, Mermaid 색상 확장만 같은 폴더의 별도 파일로 나눈다. 여러 편집기를 교체하는 공통 인터페이스나 서비스 계층을 만들지 않는다. 더 이상 사용하지 않는 shadcn Textarea 소스는 삭제한다. 바깥 패널·레이블·배지는 기존 shadcn 컴포넌트를 유지하고 편집기 배경·글자·경계·선택·검색 UI는 기존 CSS 변수와 맞춘다. 코드에는 고정폭 글꼴을 사용하며 Pele 다이어그램 스타일은 바꾸지 않는다.
+편집기 조합은 `src/components/source-editor.tsx`에 두고, Mermaid 색상 확장은 `src/lib/mermaid-language.ts`로 나눈다. 여러 편집기를 교체하는 공통 인터페이스나 서비스 계층을 만들지 않는다. 더 이상 사용하지 않는 shadcn Textarea 소스는 삭제한다. 바깥 패널·레이블·배지는 기존 shadcn 컴포넌트를 유지하고 편집기 배경·글자·경계·선택·검색 UI는 기존 CSS 변수와 맞춘다. 코드에는 고정폭 글꼴을 사용하며 Pele 다이어그램 스타일은 바꾸지 않는다.
 
 입력은 즉시 React 상태에 반영하고, 기존 200ms 렌더링 지연과 초안 저장을 유지한다. 문서가 바뀔 때마다 편집기 인스턴스를 다시 생성하지 않으며, 확장·테마 설정을 안정적으로 유지해 커서·선택·스크롤·undo 기록을 보존한다. 한글 조합 시작에는 예약된 미리보기를 취소하고, 조합 중에는 렌더링을 보류하며, 조합 종료 후 최종 입력으로 다시 예약한다. CodeMirror의 DOM 이벤트와 문서 업데이트 순서를 확인해 최종 입력이 누락되지 않게 한다.
 
