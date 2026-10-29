@@ -4,6 +4,8 @@ A web app that renders Mermaid source with [Pele](https://pele.run/). It include
 
 Built with React, TypeScript, Vite, shadcn/ui, and CodeMirror. The interface and project documentation are in English.
 
+[Open Inklava](https://inklava.seo-edge.workers.dev)
+
 ## Getting started
 
 Requires Bun **1.4.0** and Node.js **24.18.0 or later**.
