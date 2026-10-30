@@ -4,6 +4,8 @@ A web app that renders Mermaid source with [Pele](https://pele.run/). It include
 
 Built with React, TypeScript, Vite, shadcn/ui, and CodeMirror. The interface and project documentation are in English.
 
+The favicon uses Pele's original [SVG](https://pele.run/pele.svg) and [ICO](https://pele.run/favicon.ico) files unchanged. Copyright © 2026 kepano; the upstream [license](public/pele-LICENSE.txt) is included.
+
 [Open Inklava](https://inklava.seo-edge.workers.dev)
 
 ## Getting started
