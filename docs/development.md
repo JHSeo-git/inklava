@@ -34,13 +34,13 @@ src/
   styles/               # Tailwind and shadcn theme
 ```
 
-Use kebab-case source filenames such as `source-editor.tsx`, `render-diagram.ts`, and `use-viewport.ts`. Put app components directly under `components/`; do not create a `features/` layer. Component and function identifiers keep the usual React and TypeScript conventions. Documentation, UI copy, error messages, accessibility labels, and code comments are written in English.
+Use kebab-case source filenames such as `source-editor.tsx`, `render-diagram.ts`, and `use-viewport.ts`. Put app components directly under `components/`; do not create a `features/` layer. Component and function identifiers keep the usual React and TypeScript conventions.
 
 ## Test coverage and limits
 
 Unit tests cover coordinate calculations and Mermaid token handling. Playwright tests across three browser engines cover error recovery, draft restoration and storage failure, composition events, indentation, undo/redo, search, Escape-then-Tab focus escape, search preservation during errors, label focus and selection, line-number alignment, internal scrolling, pointer-centered zoom and pan, camera preservation, initial fitting of hidden panels, resizing, mobile layout, and PNG exports.
 
-Composition tests use synthetic events with English fixture labels to check event ordering and rendering delays. They do not replace testing with a real OS input method, including Korean IMEs. Trackpad sensitivity and inertial scrolling in macOS Safari also need physical-device testing.
+Composition tests use synthetic events to check event ordering and rendering delays. They do not replace testing with a real OS input method, including Korean IMEs. Trackpad sensitivity and inertial scrolling in macOS Safari also need physical-device testing.
 
 The full Pele entry point, CodeMirror, and panel resizing produce an initial JavaScript bundle of about **1.50MB, or 518KB gzip**, triggering Vite's large-chunk warning. Code splitting and Web Workers have not been introduced. Large inputs can temporarily block the main thread; measure rendering latency on real devices before deciding on further optimization.
 

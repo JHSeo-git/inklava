@@ -4,7 +4,6 @@
 
 - Use Pele's original SVG and ICO favicon files unchanged and include the upstream license.
 - Deploy Inklava to Cloudflare Workers Static Assets at https://inklava.seo-edge.workers.dev and document production verification and redeployment.
-- Use English throughout the interface, accessibility labels, error messages, examples, tests, and project documentation.
 - Simplify the README and move detailed usage, development, and Cloudflare deployment guides into `docs/`.
 
 ## 0.1.0 - 2026-10-29

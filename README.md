@@ -2,7 +2,7 @@
 
 A web app that renders Mermaid source with [Pele](https://pele.run/). It includes an editor with line numbers and syntax highlighting, resizable panels, free pan and zoom, and PNG downloads. Drafts are saved in your browser.
 
-Built with React, TypeScript, Vite, shadcn/ui, and CodeMirror. The interface and project documentation are in English.
+Built with React, TypeScript, Vite, shadcn/ui, and CodeMirror.
 
 The favicon uses Pele's original [SVG](https://pele.run/pele.svg) and [ICO](https://pele.run/favicon.ico) files unchanged. Copyright © 2026 kepano; the upstream [license](public/pele-LICENSE.txt) is included.
 
