@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Update Pele to 1.13.0, cn to 0.5.2, react-resizable-panels to 4.16.1, the React Vite plugin to 6.2.1, and Wrangler to 4.156.1; support Mermaid theme variables for chart palettes.
 - Add GitHub Actions deployment on pushes to `main`, with pinned actions, the existing checks and build, serialized production deployments, and verification of the live HTML.
 - Use Pele's original SVG and ICO favicon files unchanged and include the upstream license.
 - Deploy Inklava to Cloudflare Workers Static Assets at https://inklava.seo-edge.workers.dev and document production verification and redeployment.

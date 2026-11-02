@@ -1,6 +1,6 @@
 # Inklava
 
-A web app that renders Mermaid source with [Pele](https://pele.run/). It includes an editor with line numbers and syntax highlighting, resizable panels, free pan and zoom, and PNG downloads. Drafts are saved in your browser.
+A web app that renders Mermaid source with [Pele](https://pele.run/). It includes an editor with line numbers and syntax highlighting, resizable panels, free pan and zoom, and PNG downloads. Mermaid theme variables can customize chart palettes. Drafts are saved in your browser.
 
 Built with React, TypeScript, Vite, shadcn/ui, and CodeMirror.
 

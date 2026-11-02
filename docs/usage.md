@@ -50,6 +50,6 @@ Exports have a white background and default to twice the diagram's natural resol
 
 ## Supported scope
 
-Inklava uses Pele's default styles and built-in Mermaid compatibility. Its layout differs from Mermaid.js, and external plugins are not supported. Links and external images in previews are disabled. See [Pele compatibility](https://pele.run/compatibility).
+Inklava uses Pele's default styles and built-in Mermaid compatibility. Mermaid palette variables such as `pie1` and `pie2` in `themeVariables` can customize chart colors; see [Pele series palettes](https://pele.run/theming#series-palettes). Its layout differs from Mermaid.js, and external plugins are not supported. Links and external images in previews are disabled. See [Pele compatibility](https://pele.run/compatibility).
 
 Sharing, collaboration, and touchscreen multitouch controls are not supported.
