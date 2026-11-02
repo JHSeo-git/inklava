@@ -186,7 +186,9 @@ The core `wrangler.jsonc` configuration has no `main`:
 
 Enable SPA fallback for direct navigation and reloads; the client router handles unknown routes. Verify actual JavaScript and CSS responses too. Local Wrangler 4.155.0 returned **`index.html` with status 200 even for nonexistent `/assets/missing.js`**. Official documentation likewise routes all unmatched requests to `index.html` in SPA mode. Retain assets-only deployment and record this limitation. Returning 404 for missing assets would need a separate Worker routing decision. Local results do not verify production deployment. [Cloudflare SPA routing](https://developers.cloudflare.com/workers/static-assets/routing/single-page-application/)
 
-Bun manages packages and scripts; deployed browser code does not use the Bun runtime. Execution was verified with Node 24.18.0 and Bun 1.4.0. Prepare deployment as `bun run build`, local Wrangler verification, then `bun run deploy`. External deployment requires a separate request.
+Bun manages packages and scripts; deployed browser code does not use the Bun runtime. Execution was verified with Node 24.18.0 and Bun 1.4.0. Manual deployment uses `bun run build`, local Wrangler verification, then `bun run deploy`.
+
+At the user's request, GitHub Actions now provides automatic production deployment on pushes to `main`. Run the existing checks and build before Cloudflare's official `wrangler-action`, use the repository's pinned runtimes and Wrangler, serialize deployments, and verify the live HTML against the build. Authenticate with repository secrets and keep Cloudflare credentials out of dependency installation and checks. Manual workflow runs are restricted to `main`. See the [deployment guide](../deployment.md) and [research](../research/github-actions-deployment.md). Other release and manual deployment actions still require an explicit request.
 
 ## Implementation order and completion criteria
 

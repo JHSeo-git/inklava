@@ -8,6 +8,8 @@ The favicon uses Pele's original [SVG](https://pele.run/pele.svg) and [ICO](http
 
 [Open Inklava](https://inklava.seo-edge.workers.dev)
 
+Pushes to `main` run checks, build, and deploy to Cloudflare through GitHub Actions. See [deployment setup](docs/deployment.md#automatic-deployment) for the required repository secrets.
+
 ## Getting started
 
 Requires Bun **1.4.0** and Node.js **24.18.0 or later**.

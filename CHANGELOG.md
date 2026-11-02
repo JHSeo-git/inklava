@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Add GitHub Actions deployment on pushes to `main`, with pinned actions, the existing checks and build, serialized production deployments, and verification of the live HTML.
 - Use Pele's original SVG and ICO favicon files unchanged and include the upstream license.
 - Deploy Inklava to Cloudflare Workers Static Assets at https://inklava.seo-edge.workers.dev and document production verification and redeployment.
 - Simplify the README and move detailed usage, development, and Cloudflare deployment guides into `docs/`.
