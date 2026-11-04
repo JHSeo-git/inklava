@@ -8,15 +8,11 @@ The first visit opens a short example. The preview updates after 200ms without f
 
 Drafts are stored in the current browser's `localStorage`. An empty draft is restored as empty. If browser storage is blocked, the app shows a message and lets you continue editing. Server storage and account synchronization are not supported.
 
-The editor and preview have no persistent help rows. Feedback appears below the editor only for input errors or draft storage failures.
-
 ## Editing source
 
-The CodeMirror 6 editor provides line numbers and horizontal and vertical scrolling inside the panel. Long lines scroll horizontally instead of wrapping. Following Pele Playground, panel focus outlines, active-line and line-number backgrounds, matching-bracket and matching-word highlights, and the gutter border are hidden. Text selection and search results remain highlighted.
+The editor provides line numbers, syntax colors, and horizontal and vertical scrolling. Long lines scroll horizontally instead of wrapping.
 
 Basic colors distinguish Mermaid keywords, comments, double-quoted strings, and connections. Pele rendering determines whether the source is valid. The editor is not a full Mermaid language server; autocomplete, folding, automatic bracket insertion, and navigation to error locations are not included.
-
-Clicking the `Mermaid source` label focuses the editor without changing its document or selection. An open search panel keeps its query and focus when syntax errors or storage feedback change.
 
 At widths of 768px or more, drag the divider between the source and preview to resize the panels. When the divider is focused, use the left and right arrow keys to resize, Home and End to reach the limits, or double-click to restore the initial ratio. The source stays at least 240px wide and the preview at least 360px. Narrower screens use a vertical layout with the divider hidden. Resizing preserves editing history, preview scale, and the diagram point at the center. Reloading resets the panel ratio.
 

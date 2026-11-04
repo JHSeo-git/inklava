@@ -188,7 +188,7 @@ Enable SPA fallback for direct navigation and reloads; the client router handles
 
 Bun manages packages and scripts; deployed browser code does not use the Bun runtime. Execution was verified with Node 24.18.0 and Bun 1.4.0. Manual deployment uses `bun run build`, local Wrangler verification, then `bun run deploy`.
 
-At the user's request, GitHub Actions now provides automatic production deployment on pushes to `main`. Run the existing checks and build before Cloudflare's official `wrangler-action`, use the repository's pinned runtimes and Wrangler, serialize deployments, and verify the live HTML against the build. Authenticate with repository secrets and keep Cloudflare credentials out of dependency installation and checks. Manual workflow runs are restricted to `main`. See the [deployment guide](../deployment.md) and [research](../research/github-actions-deployment.md). Other release and manual deployment actions still require an explicit request.
+GitHub Actions deploys production on pushes to `main` after checks and build pass. Use the repository's pinned runtimes and Wrangler, serialize deployments, and verify the live HTML against the build. Authenticate with repository secrets and keep Cloudflare credentials out of dependency installation and checks. Manual workflow runs are restricted to `main`. See the [deployment guide](../deployment.md) and [research](../research/github-actions-deployment.md).
 
 ## Implementation order and completion criteria
 

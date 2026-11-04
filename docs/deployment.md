@@ -4,9 +4,7 @@
 
 ## Live deployment
 
-The app is available at [inklava.seo-edge.workers.dev](https://inklava.seo-edge.workers.dev). It was first deployed on 2026-10-29 from commit `27e7f06` as the `inklava` Worker using Workers Static Assets.
-
-Production checks verified that HTML, JavaScript, and CSS match the local build, and that rendering, PNG downloads, draft restoration after reload, and client-side routing work in Chromium.
+The `inklava` Worker serves the app at [inklava.seo-edge.workers.dev](https://inklava.seo-edge.workers.dev) using Workers Static Assets.
 
 ## Local preview
 
@@ -17,13 +15,13 @@ bun run preview:cloudflare    # Local Wrangler server: http://localhost:8787
 
 `wrangler.jsonc` serves `dist/` through Workers Static Assets. There is no Worker server code. Locally, verify the root page, reloads, the client-side message for `/missing`, and responses for actual JavaScript and CSS assets.
 
-Cloudflare's `single-page-application` setting returns `index.html` for every unmatched path. Local Wrangler verification also confirmed that **a nonexistent `/assets/missing.js` returns HTML with status 200**. This is a limitation of the current assets-only deployment. Returning 404 for missing assets would require separate Worker routing. See the [official SPA routing documentation](https://developers.cloudflare.com/workers/static-assets/routing/single-page-application/).
+SPA fallback returns `index.html` for unmatched paths, including missing assets such as `/assets/missing.js`, with status 200. Returning 404 for missing assets requires separate Worker routing. See [SPA routing](https://developers.cloudflare.com/workers/static-assets/routing/single-page-application/).
 
 ## Automatic deployment
 
 [Deploy to Cloudflare](../.github/workflows/deploy.yml) runs on every push to `main`. It installs the versions from `.node-version` and `.bun-version`, installs dependencies with `bun install --frozen-lockfile`, and runs `bun run check`. Only a successful check and build can reach the deployment step.
 
-The workflow uses Cloudflare's official `wrangler-action` with Bun and the Wrangler version already installed from `package.json` and `bun.lock`. Actions are pinned to full commit SHAs. Production deployments share one concurrency group and running deployments are allowed to finish. After deployment, the workflow fetches the live HTML and compares it with this run's `dist/index.html`, retrying briefly for propagation. A verification failure means the deployment needs investigation; it does not automatically roll back the Worker.
+The workflow uses Cloudflare's official `wrangler-action` and the installed Wrangler version. Actions are pinned to commit SHAs, and production deployments run one at a time. After deployment, it compares the live HTML with `dist/index.html`. Verification failures do not automatically roll back the Worker.
 
 ### One-time authentication setup
 
@@ -51,11 +49,11 @@ Use the workflow's **Run workflow** button with `main` selected, or run:
 gh workflow run deploy.yml --ref main
 ```
 
-Runs dispatched from other branches are skipped. Check the exact run's commit and logs before rerunning a failed deployment. The workflow does not configure custom domains or Cloudflare's separate Workers Builds Git integration. Keep one automatic deployment pipeline for this Worker. See the [deployment research](research/github-actions-deployment.md) for alternatives and official sources.
+Runs dispatched from other branches are skipped. Check the exact run's commit and logs before rerunning a failed deployment. Avoid enabling Cloudflare Workers Builds alongside this workflow to prevent duplicate deployments. See the [deployment research](research/github-actions-deployment.md) for alternatives.
 
 ## Deploying manually
 
-This project uses Wrangler and `wrangler.jsonc`. The separate `cf` CLI can inspect account resources, but its OAuth login does not authenticate Wrangler. Use the project's pinned Wrangler through Bun:
+Use the project's pinned Wrangler:
 
 ```sh
 bunx wrangler whoami
@@ -64,4 +62,4 @@ bun run deploy               # Build and deploy to the configured Worker
 bunx wrangler deployments status
 ```
 
-Confirm the account and the `inklava` Worker before deploying. `bun run deploy` publishes the current build to the live site. Verify the returned URL after deployment. A custom domain has not been configured. See [using cf alongside Wrangler](https://developers.cloudflare.com/cf/wrangler/#use-cf-alongside-a-wrangler-project).
+`bun run deploy` publishes to the live site. Confirm the account and Worker before running it, then verify the returned URL.
